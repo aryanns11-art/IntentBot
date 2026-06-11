@@ -1,20 +1,22 @@
-import random
+knowledge_base = {
+    "software": {
+        "system": "System Software: Controls hardware and core operations.",
+        "application": "Application Software: Helps users perform tasks.",
+        "programming": "Programming Software: Tools like IDEs and compilers."
+    },
 
-software_data = {
-    "system": "System Software: Controls the core operations of your device, including hardware management, memory, and security.",
-    
-    "application": "Application Software: Designed to help users perform tasks like browsing, documents, games.",
-    
-    "programming": "Programming Software: Tools used by developers like IDEs, compilers, debuggers."
+    "tech": {
+        "ai": "Artificial Intelligence: Machines simulating intelligence.",
+        "ml": "Machine Learning: Systems that learn from data.",
+        "dl": "Deep Learning: Multi-layer neural networks.",
+        "nlp": "Natural Language Processing: Understanding human language."
+    },
+
+    "database": {
+        "sql": "SQL Databases: Structured data.",
+        "nosql": "NoSQL Databases: Flexible schema."
+    }
 }
-
-tech_data = {
-    "ai": "Artificial Intelligence: Machines simulating human intelligence.",
-    "ml": "Machine Learning: Systems that learn from data (re   commendation systems, spam filters).",
-    "dl": "Deep Learning: Neural networks with many layers (image recognition, NLP).",
-    "nlp": "Natural Language Processing: Machines understanding human language (chatbots, translation)."
-}
-
 
 def detect_intent(user_input):
 
@@ -51,45 +53,64 @@ def detect_intent(user_input):
         else:
             return ("tech","unknown")
 
+    elif any(w in text for w in ['database','db','backend']):  
+
+        if any(w in text for w in ['sql','structured query language']):
+            return ("database","sql")  
+        
+        elif any(w in text for w in ['nosql','not only structured query language']):
+            return ("database","nosql")  
+        
+        else:
+            return ("database","unknown")
+
     else:
         return ("unknown","unknown")
 
 
 def generate_text(intent):
 
-    main_domain , sub_domain = intent
+    main_domain, sub_domain = intent
 
     if main_domain == "software" and sub_domain == "system":
-        return software_data["system"]
-    
+        return knowledge_base["software"]["system"]
+
     elif main_domain == "software" and sub_domain == "application":
-        return software_data["application"]
+        return knowledge_base["software"]["application"]
     
     elif main_domain == "software" and sub_domain == "programming":
-        return software_data["programming"]
+        return knowledge_base["software"]["programming"]
     
     elif main_domain == "software" and sub_domain == "unknown":
         return "Please specify: system, application, or programming software."
-    
-    
+    #-------------------------------------------------------------------------------
     elif main_domain == "tech" and sub_domain == "ai":
-        return tech_data["ai"]
+        return knowledge_base["tech"]["ai"]
     
     elif main_domain == "tech" and sub_domain == "ml":
-        return tech_data["ml"]
+        return knowledge_base["tech"]["ml"]
+        
+    elif main_domain == "tech" and sub_domain == "nlp":
+        return knowledge_base["tech"]["nlp"]
     
     elif main_domain == "tech" and sub_domain == "dl":
-        return tech_data["dl"]
-    
-    elif main_domain == "tech" and sub_domain == "nlp":
-        return tech_data["nlp"]
+        return knowledge_base["tech"]["dl"]
     
     elif main_domain == "tech" and sub_domain == "unknown":
-        return "Please specify: AI, ML, DL, or NLP."
-
+          return "Please specify: AI, ML, DL, or NLP."
+    #-------------------------------------------------------------------------------
+    elif main_domain == "database" and sub_domain == "sql":
+           return knowledge_base["database"]["sql"]
+    
+    elif main_domain == "database" and sub_domain == "nosql":
+           return knowledge_base["database"]["nosql"]
+    
+    elif main_domain == "database" and sub_domain == "unknown":
+        return "Please specify: Sql or Nosql"
+    
     else:
-        return "Data Not Available Yet !"
-
+         return "Data Not Available Yet !"
+    
 
 while True:
     user_input = input("You : ")
