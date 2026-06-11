@@ -78,7 +78,7 @@ keywords = {
     },
 
     "database": {
-        "main": ["database","db","backend"],
+        "main": ["database","db","backend","sql","mysql"],
         "sub": {
             "sql": ["sql","structured query language"],
             "nosql": ["nosql","mongodb","firebase"]
@@ -89,15 +89,33 @@ keywords = {
 
 def detect_intent(user_input):
     text = user_input.lower()
-        
-    for main_domain, data in keywords.items():  # go bottom of code to understand
+    words = text.split()
 
-        if any(word in text for word in data["main"]):
+    for main_domain, data in keywords.items(): # Go bottom for understanding
+
+        if any(word in words for word in data["main"]):
 
             for sub_domain, sub_words in data["sub"].items():
 
-                if any(word in text for word in sub_words):
-                    return (main_domain, sub_domain)
+                if any(word in words for word in sub_words):
+                    return (main_domain, sub_domain)   
+
+            print(f"\nBot: Main topic found: {main_domain}")
+            print("Please choose a sub-topic:\n")
+
+            sub_list = list(data["sub"].keys())
+
+            for i, sub in enumerate(sub_list, start=1):
+                print(f"{i}. {sub}")
+
+            choice = input("\nEnter choice number: ")
+
+            if choice.isdigit():
+                choice = int(choice)
+
+                if 1 <= choice <= len(sub_list):
+                    selected = sub_list[choice - 1]
+                    return (main_domain, selected)
 
             return (main_domain, "unknown")
 
@@ -135,7 +153,8 @@ def chatbot():
 
 chatbot()
 
-
+#for main_domain, data in keywords.items():
+#--Understanding--
 # main_domain → domain name (e.g., "software")
 # data → {
 #    "main": [keywords used to detect this domain],
@@ -145,3 +164,12 @@ chatbot()
 #        "programming": [...]
 #    }
 # }
+
+
+#for sub_domain, sub_words in data["sub"].items():
+#--Understanding--
+# sub_domain → name of the sub-topic inside a domain
+#              (e.g., "system", "application", "programming")
+
+# sub_words → list of keywords used to detect that sub-topic
+#              (e.g., ["system", "os", "operating system"])
