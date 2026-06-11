@@ -1,125 +1,147 @@
-knowledge_base = {
+import random
+
+knowledge_base = { 
     "software": {
-        "system": "System Software: Controls hardware and core operations.",
-        "application": "Application Software: Helps users perform tasks.",
-        "programming": "Programming Software: Tools like IDEs and compilers."
+        "system": [
+            "System Software controls hardware and core operations.",
+            "OS and system tools manage your computer resources.",
+            "System software acts as a bridge between hardware and user."
+        ],
+        "application": [
+            "Application software helps users perform tasks.",
+            "Apps like browsers and editors are application software.",
+            "These programs are designed for end users."
+        ],
+        "programming": [
+            "Programming software includes IDEs and compilers.",
+            "Developers use tools like VS Code or PyCharm.",
+            "These tools help in writing and debugging code."
+        ]
     },
 
     "tech": {
-        "ai": "Artificial Intelligence: Machines simulating intelligence.",
-        "ml": "Machine Learning: Systems that learn from data.",
-        "dl": "Deep Learning: Multi-layer neural networks.",
-        "nlp": "Natural Language Processing: Understanding human language."
+        "ai": [
+            "AI enables machines to simulate human intelligence.",
+            "Artificial Intelligence powers smart systems.",
+            "AI is used in automation and decision-making."
+        ],
+        "ml": [
+            "Machine Learning allows systems to learn from data.",
+            "ML models improve with experience.",
+            "It is a subset of AI."
+        ],
+        "dl": [
+            "Deep Learning uses neural networks.",
+            "DL handles complex patterns like images and speech.",
+            "It is an advanced form of ML."
+        ],
+        "nlp": [
+            "NLP helps machines understand human language.",
+            "Chatbots use NLP to communicate.",
+            "It deals with text and speech processing."
+        ]
     },
 
     "database": {
-        "sql": "SQL Databases: Structured data.",
-        "nosql": "NoSQL Databases: Flexible schema."
+        "sql": [
+            "SQL databases store structured data.",
+            "They use tables and relationships.",
+            "Examples include MySQL and PostgreSQL."
+        ],
+        "nosql": [
+            "NoSQL databases have flexible schemas.",
+            "They store unstructured data.",
+            "Examples include MongoDB and Firebase."
+        ]
     }
 }
 
+
+keywords = {
+    "software": {
+        "main": ["software","app","application","program","ios","android","windows"],
+        "sub": {
+            "system": ["system","os","operating system"],
+            "application": ["application","app"],
+            "programming": ["programming","coding","code","developer"]
+        }
+    },
+
+    "tech": {
+        "main": ["tech","technology","ai","ml","dl","nlp"],
+        "sub": {
+            "ai": ["ai","artificial intelligence"],
+            "ml": ["ml","machine learning"],
+            "dl": ["dl","deep learning"],
+            "nlp": ["nlp","natural language","chatbot"]
+        }
+    },
+
+    "database": {
+        "main": ["database","db","backend"],
+        "sub": {
+            "sql": ["sql","structured query language"],
+            "nosql": ["nosql","mongodb","firebase"]
+        }
+    }
+}
+
+
 def detect_intent(user_input):
-
     text = user_input.lower()
+        
+    for main_domain, data in keywords.items():  # go bottom of code to understand
 
-    if any(w in text for w in ["software","website","application","ios","android"]):
-    
-        if any(w in text for w in ['system','os','operating system']):
-            return ("software","system")
-        
-        elif any(w in text for w in ['application','app']):
-            return ("software","application")
-        
-        elif any(w in text for w in ['program','programming','coding','code']):
-            return ("software","programming")
-        
-        else:
-            return ("software", "unknown")
-        
-    elif any(w in text for w in ['ai','ml','dl','nlp','technology','tech']):
-        
-        if any(w in text for w in ['ai','artificial intelligence']):
-            return ("tech","ai")
-        
-        elif any(w in text for w in ['ml','machine learning']):
-            return ("tech","ml")    
-        
-        elif any(w in text for w in ['dl','deep learning']):
-            return ("tech","dl")   
+        if any(word in text for word in data["main"]):
 
-        elif any(w in text for w in ['nlp','natural language']):
-            return ("tech","nlp")     
+            for sub_domain, sub_words in data["sub"].items():
 
-        else:
-            return ("tech","unknown")
+                if any(word in text for word in sub_words):
+                    return (main_domain, sub_domain)
 
-    elif any(w in text for w in ['database','db','backend']):  
+            return (main_domain, "unknown")
 
-        if any(w in text for w in ['sql','structured query language']):
-            return ("database","sql")  
-        
-        elif any(w in text for w in ['nosql','not only structured query language']):
-            return ("database","nosql")  
-        
-        else:
-            return ("database","unknown")
-
-    else:
-        return ("unknown","unknown")
+    return ("unknown","unknown")
 
 
 def generate_text(intent):
-
     main_domain, sub_domain = intent
 
-    if main_domain == "software" and sub_domain == "system":
-        return knowledge_base["software"]["system"]
+    if main_domain in knowledge_base:
 
-    elif main_domain == "software" and sub_domain == "application":
-        return knowledge_base["software"]["application"]
-    
-    elif main_domain == "software" and sub_domain == "programming":
-        return knowledge_base["software"]["programming"]
-    
-    elif main_domain == "software" and sub_domain == "unknown":
-        return "Please specify: system, application, or programming software."
-    #-------------------------------------------------------------------------------
-    elif main_domain == "tech" and sub_domain == "ai":
-        return knowledge_base["tech"]["ai"]
-    
-    elif main_domain == "tech" and sub_domain == "ml":
-        return knowledge_base["tech"]["ml"]
-        
-    elif main_domain == "tech" and sub_domain == "nlp":
-        return knowledge_base["tech"]["nlp"]
-    
-    elif main_domain == "tech" and sub_domain == "dl":
-        return knowledge_base["tech"]["dl"]
-    
-    elif main_domain == "tech" and sub_domain == "unknown":
-          return "Please specify: AI, ML, DL, or NLP."
-    #-------------------------------------------------------------------------------
-    elif main_domain == "database" and sub_domain == "sql":
-           return knowledge_base["database"]["sql"]
-    
-    elif main_domain == "database" and sub_domain == "nosql":
-           return knowledge_base["database"]["nosql"]
-    
-    elif main_domain == "database" and sub_domain == "unknown":
-        return "Please specify: Sql or Nosql"
-    
-    else:
-         return "Data Not Available Yet !"
-    
+        if sub_domain in knowledge_base[main_domain]:
+            return random.choice(knowledge_base[main_domain][sub_domain])
 
-while True:
-    user_input = input("You : ")
+        else:
+            return f"Please specify a sub-domain for {main_domain}."
 
-    if user_input.lower() == "exit":
-        print("Good Bye !")
-        break
+    return "Data Not Available Yet!"
 
-    intent = detect_intent(user_input)
-    result = generate_text(intent)
 
-    print(f"Response -> {result}")
+def chatbot():
+    
+    while True:
+        user_input = input("You: ")
+
+        if user_input.lower() == "exit":
+            print("Bot: Goodbye!")
+            break
+
+        intent = detect_intent(user_input)
+        response = generate_text(intent)
+
+        print(f"Bot: {response}")
+
+
+chatbot()
+
+
+# main_domain → domain name (e.g., "software")
+# data → {
+#    "main": [keywords used to detect this domain],
+#    "sub": {
+#        "system": [...],
+#        "application": [...],
+#        "programming": [...]
+#    }
+# }
