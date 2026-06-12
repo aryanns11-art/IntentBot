@@ -1,0 +1,183 @@
+{
+  "knowledge_base": {
+    "software": {
+      "system": {
+        "explanation": [
+          "System Software controls hardware and core operations.",
+          "Operating systems manage memory, processes, and devices.",
+          "It acts as a bridge between hardware and user."
+        ],
+        "examples": [
+          "Windows and Linux are system software.",
+          "Device drivers are part of system software.",
+          "BIOS helps start your computer."
+        ]
+      },
+
+      "application": {
+        "explanation": [
+          "Application software helps users perform tasks.",
+          "These programs are designed for end users.",
+          "They run on top of system software."
+        ],
+        "examples": [
+          "Google Chrome is an application software.",
+          "MS Word is used for document editing.",
+          "Spotify is used for music streaming."
+        ]
+      },
+
+      "programming": {
+        "explanation": [
+          "Programming software includes IDEs and compilers.",
+          "Developers use tools to write and debug code.",
+          "These tools help in software development."
+        ],
+        "examples": [
+          "VS Code is a programming tool.",
+          "PyCharm is used for Python development.",
+          "GCC is a compiler."
+        ]
+      }
+    },
+
+    "tech": {
+      "ai": {
+        "explanation": [
+          "AI enables machines to simulate human intelligence.",
+          "Artificial Intelligence powers smart systems.",
+          "AI is used in automation and decision-making."
+        ],
+        "examples": [
+          "AI is used in self-driving cars.",
+          "Virtual assistants like Siri use AI.",
+          "Netflix recommendations are powered by AI."
+        ]
+      },
+
+      "ml": {
+        "explanation": [
+          "Machine Learning allows systems to learn from data.",
+          "ML models improve with experience.",
+          "It is a subset of AI."
+        ],
+        "examples": [
+          "Spam email filters use ML.",
+          "YouTube recommendations use ML models.",
+          "Face recognition systems use ML."
+        ]
+      },
+
+      "dl": {
+        "explanation": [
+          "Deep Learning uses neural networks.",
+          "DL handles complex patterns like images and speech.",
+          "It is an advanced form of ML."
+        ],
+        "examples": [
+          "Image recognition uses deep learning.",
+          "Voice assistants rely on DL.",
+          "Self-driving cars use deep learning models."
+        ]
+      },
+
+      "nlp": {
+        "explanation": [
+          "NLP helps machines understand human language.",
+          "It deals with text and speech processing.",
+          "Chatbots use NLP to communicate."
+        ],
+        "examples": [
+          "ChatGPT uses NLP.",
+          "Google Translate uses NLP.",
+          "Voice typing uses NLP."
+        ]
+      }
+    },
+
+    "database": {
+      "sql": {
+        "explanation": [
+          "SQL databases store structured data.",
+          "They use tables and relationships.",
+          "They follow a fixed schema."
+        ],
+        "examples": [
+          "MySQL is an SQL database.",
+          "PostgreSQL is widely used.",
+          "Oracle Database is enterprise-level SQL."
+        ]
+      },
+
+      "nosql": {
+        "explanation": [
+          "NoSQL databases have flexible schemas.",
+          "They store unstructured or semi-structured data.",
+          "They are scalable and fast."
+        ],
+        "examples": [
+          "MongoDB is a NoSQL database.",
+          "Firebase is used in mobile apps.",
+          "Redis is used for caching."
+        ]
+      }
+    }
+  },
+
+  "keywords": {
+    "software": {
+      "main": [
+        "software", "softwares", "app", "apps", "application", "applications",
+        "program", "programs", "ios", "android", "windows"
+      ],
+      "sub": {
+        "system": [
+          "system", "os", "operating system", "system software"
+        ],
+        "application": [
+          "application", "app", "apps", "software app"
+        ],
+        "programming": [
+          "programming", "coding", "code", "developer", "development", "software development"
+        ]
+      }
+    },
+
+    "tech": {
+      "main": [
+        "tech", "technology", "ai", "ml", "dl", "nlp",
+        "artificial intelligence", "machine learning",
+        "deep learning", "natural language processing"
+      ],
+      "sub": {
+        "ai": [
+          "ai", "artificial intelligence", "intelligent systems"
+        ],
+        "ml": [
+          "ml", "machine learning", "learning models"
+        ],
+        "dl": [
+          "dl", "deep learning", "neural networks"
+        ],
+        "nlp": [
+          "nlp", "natural language", "chatbot", "language processing"
+        ]
+      }
+    },
+
+    "database": {
+      "main": [
+        "database", "databases", "db", "backend",
+        "data storage", "data management"
+      ],
+      "sub": {
+        "sql": [
+          "sql", "structured query language", "relational database"
+        ],
+        "nosql": [
+          "nosql", "mongodb", "firebase", "non relational database"
+        ]
+      }
+    }
+  }
+}
