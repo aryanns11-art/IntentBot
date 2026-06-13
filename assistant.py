@@ -1,8 +1,13 @@
 import random
 import json
 
-with open("data-sets.json", "r") as file:
-    data = json.load(file)
+try:
+    with open("data-sets.json", "r") as file:
+        data = json.load(file)
+
+except (FileNotFoundError, json.JSONDecodeError):
+    print("Error loading dataset!")
+    exit()
 
 knowledge_base = data["knowledge_base"]
 keywords = data["keywords"]
@@ -45,6 +50,7 @@ def detect_intent(user_input):
 #---------------------------------------------------------------------------------------------
 
 def generate_text(intent, mode="explanation"):
+
     main_domain, sub_domain = intent
 
     greetings = [
@@ -56,9 +62,9 @@ def generate_text(intent, mode="explanation"):
 
     if main_domain not in knowledge_base:
         return "Data Not Available Yet!"
-
+    
     if sub_domain not in knowledge_base[main_domain]:
-        return f"I got {main_domain}, but which part are you interested in?"
+        return f"I recognized the topic '{main_domain}', but I don't have information on '{sub_domain}' yet."
 
     topic_data = knowledge_base[main_domain][sub_domain]
 
@@ -88,6 +94,16 @@ def get_followup_response(intent, f_type):
 
 #---------------------------------------------------------------------------------------------
 
+def is_valid_intent(intent):
+    main_domain, sub_domain = intent
+
+    if main_domain not in knowledge_base:
+        return False
+
+    return sub_domain in knowledge_base[main_domain]
+
+#---------------------------------------------------------------------------------------------
+
 def mainn():
 
     followups = [
@@ -114,6 +130,9 @@ def mainn():
 
         response = generate_text(intent, mode="explanation")
         print(f"Bot: {response}")
+
+        if not is_valid_intent(intent):
+            continue
 
         question, f_type = random.choice(followups)
         choice2 = input("Bot: " + question + "\nYou: ").lower()
