@@ -1,5 +1,6 @@
 import random
 import json
+import pyttsx3
 
 try:
     with open("data-sets.json", "r") as file:
@@ -12,8 +13,16 @@ except (FileNotFoundError, json.JSONDecodeError):
 knowledge_base = data["knowledge_base"]
 keywords = data["keywords"]
 
-#---------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------  
 
+def speak(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 130)
+    engine.say(text)
+    engine.runAndWait()
+    engine.stop()
+#---------------------------------------------------------------------------------------------  
+  
 def detect_intent(user_input):
     text = user_input.lower()
 
@@ -119,6 +128,7 @@ def mainn():
 
         if user_input.lower() == "exit":
             print("Bot: Goodbye!")
+            speak("Goodbye !")
             break
 
         intent = detect_intent(user_input)
@@ -130,6 +140,7 @@ def mainn():
 
         response = generate_text(intent, mode="explanation")
         print(f"Bot: {response}")
+        speak(response)
 
         if not is_valid_intent(intent):
             continue
@@ -140,9 +151,12 @@ def mainn():
         if any(word in choice2 for word in ["yes", "yeah", "sure", "ok", "okay"]):
             extra = get_followup_response(intent, f_type)
             print(f"Bot: {extra}")
+            speak(extra)           
 
         elif any(word in choice2 for word in ["no", "nah", "nope"]):
-            print("Bot: Alright! Ask me something else")
+            res = "Alright! Ask me something else"
+            print(f"Bot: {res}")
+            speak(res)
 
 mainn()
 

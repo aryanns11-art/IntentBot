@@ -12,14 +12,11 @@ This project demonstrates the fundamentals of NLP (Natural Language Processing),
 
 * 🔍 Keyword-based intent detection
 * 🧠 Structured knowledge base stored in JSON
-* 🎲 Randomized responses for natural interactions
+* 🎲 Randomized responses
 * 💬 Interactive command-line chatbot
-* 📚 Covers Software, Technology, and Database topics
-* 🗂️ Domain and sub-domain classification
-* 📝 Follow-up questions and explanations
-* 🧠 Context memory for continuing conversations
-* 📖 Example-based learning responses
-* ⚠️ Graceful handling of unknown topics
+* 🗣️ Text-to-Speech (TTS) support using pyttsx3
+* 📝 Follow-up explanations and examples
+* 🧠 Context-aware follow-up conversations
 * 🚀 Easy to extend with new domains and responses
 
 ---
@@ -222,6 +219,8 @@ Bot: Goodbye!
 
 * 🐍 Python
 * 📄 JSON
+* 🔊 pyttsx3
+* 🎲 Random Module
 * 📖 Dictionaries
 * 🔄 Loops
 * ⚡ Functions
