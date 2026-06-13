@@ -1,6 +1,8 @@
 # 🤖 IntentBot
 
-A simple rule-based chatbot built in Python that uses keyword matching and intent detection to answer questions about software, technology, and databases.
+A rule-based chatbot built in Python that uses keyword matching and intent detection to answer questions about Software, Technology, and Database concepts.
+
+Unlike simple FAQ bots, IntentBot supports topic classification, sub-topic selection, follow-up questions, contextual conversations, and external JSON-based knowledge storage.
 
 This project demonstrates the fundamentals of NLP (Natural Language Processing), intent detection, knowledge representation, and chatbot development without using machine learning models.
 
@@ -9,16 +11,30 @@ This project demonstrates the fundamentals of NLP (Natural Language Processing),
 ## ✨ Features
 
 * 🔍 Keyword-based intent detection
-* 🧠 Structured knowledge base
-* 🎲 Randomized responses
+* 🧠 Structured knowledge base stored in JSON
+* 🎲 Randomized responses for natural interactions
 * 💬 Interactive command-line chatbot
 * 📚 Covers Software, Technology, and Database topics
-* 📝 Beginner-friendly and well-commented code
+* 🗂️ Domain and sub-domain classification
+* 📝 Follow-up questions and explanations
+* 🧠 Context memory for continuing conversations
+* 📖 Example-based learning responses
+* ⚠️ Graceful handling of unknown topics
 * 🚀 Easy to extend with new domains and responses
 
 ---
 
 ## 🏗️ Project Structure
+
+```text
+IntentBot/
+│
+├── chatbot.py
+├── data-sets.json
+└── README.md
+```
+
+### Knowledge Base Structure
 
 ```text
 Knowledge Base
@@ -51,6 +67,8 @@ The chatbot accepts a message from the user.
 You: Tell me about AI
 ```
 
+---
+
 ### 2️⃣ Intent Detection
 
 The input is converted to lowercase and matched against predefined keywords.
@@ -61,17 +79,52 @@ Example:
 "ai" → tech → ai
 ```
 
-### 3️⃣ Knowledge Retrieval
+The chatbot identifies:
 
-The chatbot identifies the correct domain and sub-domain.
+* Main Domain
+* Sub-Domain
+
+Example:
+
+```python
+("tech", "ai")
+```
+
+---
+
+### 3️⃣ Sub-Topic Selection
+
+If a main topic is detected but no specific sub-topic is found, the chatbot asks the user to choose one.
+
+Example:
+
+```text
+You: Tell me about technology
+
+Bot: Main topic found: tech
+Please choose a sub-topic:
+
+1. ai
+2. ml
+3. dl
+4. nlp
+```
+
+---
+
+### 4️⃣ Knowledge Retrieval
+
+The chatbot retrieves information from the JSON knowledge base.
 
 ```python
 knowledge_base["tech"]["ai"]
 ```
 
-### 4️⃣ Response Generation
+---
 
-A random response is selected using:
+### 5️⃣ Response Generation
+
+A random response is selected to make conversations feel less repetitive.
 
 ```python
 random.choice(...)
@@ -85,12 +138,47 @@ Bot: AI enables machines to simulate human intelligence.
 
 ---
 
+### 6️⃣ Follow-Up Conversations
+
+After answering, the chatbot can offer additional explanations or examples.
+
+Example:
+
+```text
+Bot: AI enables machines to simulate human intelligence.
+
+Bot: Do you want examples?
+You: yes
+
+Bot: ChatGPT and recommendation systems are examples of AI applications.
+```
+
+---
+
+### 7️⃣ Context Memory
+
+The chatbot remembers the last valid topic discussed.
+
+Example:
+
+```text
+You: Tell me about AI
+Bot: AI enables machines to simulate human intelligence.
+
+You: Give examples
+Bot: ChatGPT and recommendation systems are examples of AI applications.
+```
+
+This creates a more natural conversational experience.
+
+---
+
 ## 🚀 Installation
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/IntentBot.git
+git clone https://github.com/aryanns11-art/IntentBot.git
 ```
 
 Navigate to the project folder:
@@ -110,14 +198,19 @@ python chatbot.py
 ## 💡 Example Usage
 
 ```text
-You: What is AI?
+You: Tell me about AI
 Bot: Artificial Intelligence powers smart systems.
+
+Bot: Want me to explain more?
+You: yes
+
+Bot: AI enables machines to perform tasks that normally require human intelligence.
+
+You: Give examples
+Bot: ChatGPT and virtual assistants are examples of AI applications.
 
 You: Tell me about SQL
 Bot: SQL databases store structured data.
-
-You: Explain NLP
-Bot: NLP helps machines understand human language.
 
 You: exit
 Bot: Goodbye!
@@ -128,6 +221,7 @@ Bot: Goodbye!
 ## 🛠️ Technologies Used
 
 * 🐍 Python
+* 📄 JSON
 * 📖 Dictionaries
 * 🔄 Loops
 * ⚡ Functions
@@ -142,17 +236,20 @@ This project helps beginners understand:
 
 * Intent Detection
 * Keyword Matching
-* Knowledge Bases
 * Rule-Based Chatbots
+* Knowledge Representation
+* JSON Data Handling
 * Basic NLP Concepts
 * Python Data Structures
+* Conversational Flow Design
 
 ---
 
 ## 🔮 Future Improvements
 
-* ✅ Multi-word phrase detection
-* ✅ Better intent classification
+* ✅ Better keyword matching
+* ✅ Intent scoring system
+* ✅ Multi-domain query handling
 * ✅ Context-aware conversations
 * ✅ GUI using Tkinter / CustomTkinter
 * ✅ Database integration
