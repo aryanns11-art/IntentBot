@@ -1,6 +1,7 @@
 import random
 import json
 import pyttsx3
+import re
 
 try:
     with open("data-sets.json", "r") as file:
@@ -22,17 +23,23 @@ def speak(text):
     engine.runAndWait()
     engine.stop()
 #---------------------------------------------------------------------------------------------  
-  
+
+def contains_phrase(text, phrase):
+    pattern = r"\b" + re.escape(phrase) + r"\b"
+    return re.search(pattern, text) is not None
+
+#---------------------------------------------------------------------------------------------  
+ 
 def detect_intent(user_input):
     text = user_input.lower()
 
     for main_domain, data in keywords.items():
 
-        if any(phrase in text for phrase in data["main"]):
+        if any(contains_phrase(text, phrase) for phrase in data["main"]):   
 
             for sub_domain, sub_words in data["sub"].items():
 
-                if any(phrase in text for phrase in sub_words):
+                if any(contains_phrase(text, phrase) for phrase in sub_words):
                     return (main_domain, sub_domain)
 
             print(f"\nBot: Main topic found: {main_domain}")
