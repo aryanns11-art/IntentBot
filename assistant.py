@@ -2,6 +2,7 @@ import random
 import json
 import pyttsx3
 import re
+import speech_recognition as sr
 
 try:
     with open("data-sets.json", "r") as file:
@@ -22,6 +23,7 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
     engine.stop()
+    
 #---------------------------------------------------------------------------------------------  
 
 def contains_phrase(text, phrase):
@@ -120,6 +122,32 @@ def is_valid_intent(intent):
 
 #---------------------------------------------------------------------------------------------
 
+def listen():
+    recognizer = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print("Listening...")
+        recognizer.adjust_for_ambient_noise(source, duration=1)
+                
+        try:
+            audio = recognizer.listen(source)
+
+            text = recognizer.recognize_google(audio)
+
+            print(f"You (Voice): {text}")
+
+            return text.lower()
+
+        except sr.UnknownValueError:
+            print("Sorry, I could not understand.")
+            return ""
+
+        except sr.RequestError:
+            print("Speech service unavailable.")
+            return ""
+
+#---------------------------------------------------------------------------------------------
+
 def mainn():
 
     followups = [
@@ -129,9 +157,17 @@ def mainn():
     ]
     
     last_intent = None
-    
+    mode = input("Type 'v' for voice or 't' for text: ").lower()
+
     while True:
-        user_input = input("You: ")
+
+        if mode == "v":
+            user_input = listen()
+        else:
+            user_input = input("You: ")
+
+        if not user_input:
+            continue    
 
         if user_input.lower() == "exit":
             print("Bot: Goodbye!")
@@ -153,7 +189,17 @@ def mainn():
             continue
 
         question, f_type = random.choice(followups)
-        choice2 = input("Bot: " + question + "\nYou: ").lower()
+
+        print("Bot: ",question)
+        speak(question)
+
+        if mode == "v":
+            choice2 = listen()
+        else:
+            choice2 = input("You: ").lower()
+
+        if not choice2:
+            continue
 
         if any(word in choice2 for word in ["yes", "yeah", "sure", "ok", "okay"]):
             extra = get_followup_response(intent, f_type)
