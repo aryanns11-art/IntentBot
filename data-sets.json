@@ -168,7 +168,7 @@
     "database": {
       "main": [
         "database", "databases", "db", "backend",
-        "data storage", "data management"
+        "data storage", "data management","sql","nosql"
       ],
       "sub": {
         "sql": [
